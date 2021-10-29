@@ -3,35 +3,30 @@ package com.example.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
+import com.example.activities.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var clickButton: Button
-    private lateinit var calcButton: Button
-    private lateinit var textView: TextView
+    private lateinit var binding: ActivityMainBinding
     private var nbClick = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        clickButton = findViewById(R.id.btn_click_me)
-        calcButton = findViewById(R.id.btn_compute)
-        textView = findViewById(R.id.text_count)
-        clickButton.setOnClickListener {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.btnClickMe.setOnClickListener {
             if(nbClick < 6 ) {
-                clickButton.isEnabled = true
+                binding.btnClickMe.isEnabled = true
                 val newText = getString(R.string.clic_encore, nbClick)
                 nbClick++
-                textView.text = newText
+                binding.textCount.text = newText
             } else if (nbClick == 0){
-                textView.text = ""
+                binding.textCount.text = ""
             } else {
-                clickButton.isEnabled = false
+                binding.btnClickMe.isEnabled = false
             }
         }
-        calcButton.setOnClickListener {
+        binding.btnCompute.setOnClickListener {
             val intent = Intent(baseContext, ComputeActivity::class.java)
             startActivity(intent)
         }
