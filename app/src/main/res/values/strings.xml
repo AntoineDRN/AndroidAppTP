@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">AndroidAppTP</string>
+    <string name="click_me">Cliquez-moi</string>
+    <string name="img_description">Photo de profil</string>
+</resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AndroidAppTP</string>
+    <string name="click_me">Click on me</string>
+    <string name="img_description">Profil Picture</string>
+</resources>
