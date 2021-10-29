@@ -20,10 +20,10 @@ class MainActivity : AppCompatActivity() {
         calcButton = findViewById(R.id.btn_compute)
         textView = findViewById(R.id.text_count)
         clickButton.setOnClickListener {
-            if(nbClick < 5 ) {
+            if(nbClick < 6 ) {
                 clickButton.isEnabled = true
+                val newText = getString(R.string.clic_encore, nbClick)
                 nbClick++
-                val newText = "Cliquez moi encore, je n'ai que $nbClick clics!"
                 textView.text = newText
             } else if (nbClick == 0){
                 textView.text = ""
