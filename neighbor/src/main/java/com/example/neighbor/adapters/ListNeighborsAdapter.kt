@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.neighbor.R
+import com.example.neighbor.fragments.ListNeighborsFragment
 import com.example.neighbor.models.Neighbor
 
 class ListNeighborsAdapter(
     items: List<Neighbor>,
-    val listNeighborHandler: ListNeighborHandler
+    private val listNeighborHandler: ListNeighborsFragment
 ) : RecyclerView.Adapter<ListNeighborsAdapter.ViewHolder>() {
     private val mNeighbours: List<Neighbor> = items
 
@@ -38,7 +39,7 @@ class ListNeighborsAdapter(
             .error(R.drawable.ic_baseline_person_outline_24)
             .skipMemoryCache(false)
             .into(holder.mNeighbourAvatar)
-        holder.mDeleteButton.setOnClickListener(){
+        holder.mDeleteButton.setOnClickListener{
             listNeighborHandler.onDeleteNeighbor(neighbour)
             }
         }

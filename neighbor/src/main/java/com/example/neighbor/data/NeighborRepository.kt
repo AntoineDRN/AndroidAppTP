@@ -12,8 +12,9 @@ class NeighborRepository {
     }
 
     fun deleteNeighbor(neighbor: Neighbor) = apiService.deleteNeighbour(neighbor)
-
     fun getNeighbours(): List<Neighbor> = apiService.neighbours
+    fun createNeighbor(neighbor: Neighbor) = apiService.createNeighbour(neighbor)
+
 
     companion object {
         private var instance: NeighborRepository? = null

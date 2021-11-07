@@ -9,24 +9,24 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.neighbor.NavigationListener
 import com.example.neighbor.R
-import com.example.neighbor.adapters.ListNeighborHandler
 import com.example.neighbor.adapters.ListNeighborsAdapter
 import com.example.neighbor.data.NeighborRepository
 import com.example.neighbor.models.Neighbor
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class ListNeighborsFragment: Fragment(), ListNeighborHandler {
+class ListNeighborsFragment: Fragment() {
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var addNeighbor: FloatingActionButton
 
-    /**
-     * Fonction permettant de définir une vue à attacher à un fragment
-     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        (activity as? NavigationListener)?.updateTitle(R.string.liste_voisins)
         val view = inflater.inflate(R.layout.list_neighbors_fragment, container, false)
         recyclerView = view.findViewById(R.id.neighbors_list)
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -36,8 +36,13 @@ class ListNeighborsFragment: Fragment(), ListNeighborHandler {
                 DividerItemDecoration.VERTICAL
             )
         )
+        addNeighbor = view.findViewById(R.id.add_button)
+        addNeighbor.setOnClickListener {
+            (activity as? NavigationListener)?.showFragment(AddNeighbourFragment())
+        }
         return view
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val neighbors: List<Neighbor> = NeighborRepository.getInstance().getNeighbours()
@@ -45,10 +50,10 @@ class ListNeighborsFragment: Fragment(), ListNeighborHandler {
         recyclerView.adapter = adapter
     }
 
-    override fun onDeleteNeighbor(neighbor: Neighbor) {
+    fun onDeleteNeighbor(neighbor: Neighbor) {
         val builder = AlertDialog.Builder(this.context)
         builder.setTitle("Suppression")
-        builder.setMessage("Voulez-vous supprimer cet utilisateur?")
+        builder.setMessage(getString(R.string.del_user_question))
         builder.setPositiveButton("oui") { dialog, _ ->
             NeighborRepository.getInstance().deleteNeighbor(neighbor)
             dialog.dismiss()
